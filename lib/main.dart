@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:workshopggi/HomeAppScreen.dart';
+import 'package:workshopggi/Screen2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,6 +51,8 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -57,7 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
-
+  String username = "anandita";
+  String password = "anand1234";
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +73,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Text("Welcome "),
-            TextField(controller: nameController,)
+            TextField(controller: nameController,
+            decoration: InputDecoration(label: Text("Username")),),
+            TextField(controller: passController,decoration: InputDecoration(label:Text("Password")),),
+            ElevatedButton(onPressed: (){
+              if(nameController.text == username && passController.text == password){
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Homeappscreen()),
+                );
+              }else{
+                ScaffoldMessenger.of(context).showSnackBar
+                  (SnackBar(content: Text("Wrong Credentials , you cannot Login")));
+              }
+
+            }, child: Text("Login", style: TextStyle(),), )
+
           ],
         ),
       ),
