@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:workshopggi/Chats.dart';
-import 'package:workshopggi/calls.dart';
 import 'package:workshopggi/profile.dart';
+import 'package:workshopggi/expense_tracker.dart';
 
 class Homeappscreen extends StatefulWidget {
   const Homeappscreen({super.key});
@@ -12,27 +10,36 @@ class Homeappscreen extends StatefulWidget {
 }
 
 class _HomeAppScreenState extends State<Homeappscreen>{
-  List<Widget> myScreens = [ChatsScreen(),CallsScreen(), ProfileScreen()] ;
+  // List of screens for the 3 tabs
+  List<Widget> myScreens = [
+    const DashboardScreen(), 
+    const ExpenseListScreen(), 
+    const ProfileScreen()
+  ];
+  
   int current_index = 0 ;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Appy"),),
+      appBar: AppBar(
+        title: const Text("My Expense Tracker"),
+        backgroundColor: Colors.blue,
+      ),
       body: myScreens[current_index],
-      bottomNavigationBar:
-      BottomNavigationBar(onTap:(int index){
-        setState(() {
-          current_index = index;
-        });
-      },items:[
-        BottomNavigationBarItem(icon:Icon(Icons.call), label: "Calls"),
-        BottomNavigationBarItem(icon:Icon(Icons.message), label: "Message"),
-        BottomNavigationBarItem(icon:Icon(Icons.person), label: "Person"),
-
-      ]
-      )
-
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: current_index,
+        onTap: (index) {
+          setState(() {
+            current_index = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: "Expenses"),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+        ],
+      ),
     );
   }
-  
 }
